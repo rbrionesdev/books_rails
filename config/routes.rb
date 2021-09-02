@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   
   # get '/books', to: 'books#index'
   # get '/items/new', to:'items#new' # we don't need this
-  post '/books', to:'books#create'
+  # post '/books', to:'books#create'
 end
