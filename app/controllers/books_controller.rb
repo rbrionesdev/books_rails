@@ -10,24 +10,24 @@ class BooksController < ApplicationController
     render json: books
   end
 
-  # def create
-  #   item = Item.new(items_params)
-  #   if(item.save)
-  #     render json: item
-  #   else
-  #     # this will cause a 422 error
-  #     render json: {errors: item.errors, look:'Hello'}, status: :unprocessable_entity
-  #   end
-  # end
+  def create
+    book = Book.new(books_params)
+    if(book.save)
+      render json: book
+    else
+      # this will cause a 422 error
+      render json: {errors: book.errors, look:'Hello'}, status: :unprocessable_entity
+    end
+  end
 
-  # def destroy
-  #   @item = Item.find(params[:id])
-  #   render json: @item.destroy
-  # end
+  def destroy
+    @book = Book.find(params[:id])
+    render json: @book.destroy
+  end
 
-  # private
+  private
 
-  # def items_params
-  #   params.require(:item).permit(:name, :description)
-  # end
+  def books_params
+    params.require(:book).permit(:title, :author)
+  end
 end

@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
-// import ItemForm from "./ItemForm";
+import BookForm from "./BookForm";
 import Books from "./Books";
 
 const App = () => {
   const [books, setBooks] = useState([]);
-  // const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   const getBooks = async () => {
-    // does this chucnk of code and if fails goes to catch block
+    // does this chunk of code and if fails goes to catch block
     try {
       // get json from our rails server
       let res = await axios.get("/books");
@@ -16,44 +16,46 @@ const App = () => {
     } catch (err) {}
   };
 
-  // const deleteItem = async (id) => {
-  //   try {
-  //     // delete from db
-  //     await axios.delete(`/items/${id}`);
-  //     // remove from ui (state)
-  //     const newItems = items.filter((i) => i.id !== id);
-  //     setItems(newItems);
-  //   } catch (err) {
-  //     alert("failed to delete");
-  //     console.log(err);
-  //   }
-  // };
+  const deleteBook = async (id) => {
+    try {
+      // delete from db
+      await axios.delete(`/books/${id}`);
+      // remove from ui (state)
+      const newBooks = books.filter((b) => b.id !== id);
+      setBooks(newBooks);
+    } catch (err) {
+      alert("failed to delete");
+      console.log(err);
+    }
+  };
 
-  // const addItem = async (item) => {
-  //   console.log(item);
-  //   try {
-  //     // add to datatbase
-  //     let res = await axios.post("/items", item);
-  //     console.log(res);
-  //     //if successfull add to state
-  //     setItems([res.data, ...items]);
-  //   } catch (err) {
-  //     alert("failed to create");
-  //     console.log(err);
-  //   }
-  // };
+  const addBook = async (book) => {
+    console.log(book);
+    try {
+      // add to datatbase
+      let res = await axios.post("/books", book);
+      console.log(res);
+      //if successfull add to state
+      setBooks([res.data, ...books]);
+    } catch (err) {
+      alert("failed to create book");
+      console.log(err);
+    }
+  };
   return (
     <div style={{ margin: "10px", border: "3px solid black" }}>
-      <h1>App</h1>
-      {/* <button onClick={() => setShowForm(!showForm)}>
-        {showForm ? "hide form" : "new item form"}
-      </button> */}
-      {/* <br /> */}
-      {/* {showForm && <ItemForm addItemProp={addItem} />} */}
-      <button onClick={getBooks}>get Books</button>
-      
-      <Books books={books} />
-      {/* <Items items={items} deleteItem={deleteItem} /> */}
+      <h1>Book | App</h1>
+      {/* Hidden BookForm onClick action */}
+      <button onClick={() => setShowForm(!showForm)}>
+        {showForm ? "Hide Form" : "New Book Form"}
+      </button>
+      <br />
+      {/* Call BookForm Component and goes addBookProp */}
+      {showForm && <BookForm addBookProp={addBook} />}
+      {/* Add button to getBook */}
+      <button onClick={getBooks}>Get Books</button>
+      {/* Call Books Component and goes booksProp and deleteBookProp */}
+      <Books booksProp={books} deleteBookProp={deleteBook} />
     </div>
   );
 };
