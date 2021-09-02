@@ -2,5 +2,8 @@ Rails.application.routes.draw do
   root "books#app"
   
   resources :books
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  
+  # get '/books', to: 'books#index'
+  # get '/items/new', to:'items#new' # we don't need this
+  post '/books', to:'books#create'
 end
