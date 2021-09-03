@@ -20,6 +20,16 @@ class BooksController < ApplicationController
     end
   end
 
+  def update
+    @book = Book.find(params[:id])
+    if(@book.update(books_params))
+      render json: @book
+    else
+      #this will cause a 422 error
+      render json: {errors: book.errors, look:'Hello'}, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     @book = Book.find(params[:id])
     render json: @book.destroy

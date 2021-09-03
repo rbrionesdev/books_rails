@@ -6,9 +6,13 @@ const BookForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (props.idProp) {
+      props.updateBookProp({ id: props.idProp, title, author });
+    } else {
     props.addBookProp({ title, author });
     setTitle("");
     setAuthor("");
+    }
   };
 
   return (
@@ -29,7 +33,7 @@ const BookForm = (props) => {
             setAuthor(e.target.value);
           }}
         />
-        <button>{props.id ? "update" : "add"}</button>
+        <button>{props.idProp ? "update" : "add"}</button>
       </form>
     </div>
   );

@@ -7,11 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require "faker"
 
-5.times do |i|
+10.times do |i|
   Book.create(
     title: Faker::Book.title,
     author: Faker::Book.author,
   )
 end
 
-puts "seed #{Book.all.size}"
+# puts "seed #{Book.all.size}"
